@@ -9,8 +9,8 @@ data "aws_instance" "private" {
 
 # --- SSH Security Group ---
 resource "aws_security_group" "ssh_sg" {
-  name        = "cmtr-pf5k68pq-ssh-sg"
-  vpc_id      = var.vpc_id
+  name   = "cmtr-pf5k68pq-ssh-sg"
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 22
@@ -38,8 +38,8 @@ resource "aws_security_group" "ssh_sg" {
 
 # --- Public HTTP Security Group ---
 resource "aws_security_group" "public_http_sg" {
-  name        = "cmtr-pf5k68pq-public-http-sg"
-  vpc_id      = var.vpc_id
+  name   = "cmtr-pf5k68pq-public-http-sg"
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 80
@@ -67,8 +67,8 @@ resource "aws_security_group" "public_http_sg" {
 
 # --- Private HTTP Security Group ---
 resource "aws_security_group" "private_http_sg" {
-  name        = "cmtr-pf5k68pq-private-http-sg"
-  vpc_id      = var.vpc_id
+  name   = "cmtr-pf5k68pq-private-http-sg"
+  vpc_id = var.vpc_id
 
   ingress {
     from_port       = 8080
