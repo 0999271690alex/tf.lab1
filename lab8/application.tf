@@ -51,7 +51,8 @@ data "aws_security_group" "lb_sg" {
 ############################
 
 resource "aws_launch_template" "template" {
-  name_prefix   = "cmtr-pf5k68pq-template"
+  name = "cmtr-pf5k68pq-template"
+
   image_id      = "ami-09e6f87a47903347c"
   instance_type = "t3.micro"
   key_name      = "cmtr-pf5k68pq-keypair"
@@ -122,7 +123,11 @@ resource "aws_lb_target_group" "tg" {
   vpc_id   = data.aws_vpc.existing.id
 
   health_check {
-    path = "/"
+    path                = "/"
+    interval            = 30
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
   }
 
   tags = {
@@ -169,9 +174,13 @@ resource "aws_lb_listener" "listener" {
 resource "aws_autoscaling_group" "asg" {
   name                = "cmtr-pf5k68pq-asg"
   desired_capacity    = 2
-  max_size            = 2
   min_size            = 1
+  max_size            = 2
   vpc_zone_identifier = data.aws_subnets.public.ids
+
+  target_group_arns = [
+    aws_lb_target_group.tg.arn
+  ]
 
   launch_template {
     id      = aws_launch_template.template.id
@@ -180,8 +189,7 @@ resource "aws_autoscaling_group" "asg" {
 
   lifecycle {
     ignore_changes = [
-      load_balancers,
-      target_group_arns
+      load_balancers
     ]
   }
 
@@ -196,13 +204,4 @@ resource "aws_autoscaling_group" "asg" {
     value               = "cmtr-pf5k68pq"
     propagate_at_launch = true
   }
-}
-
-############################
-# Attach ASG to Target Group
-############################
-
-resource "aws_autoscaling_attachment" "asg_attach" {
-  autoscaling_group_name = aws_autoscaling_group.asg.name
-  lb_target_group_arn    = aws_lb_target_group.tg.arn
 }
