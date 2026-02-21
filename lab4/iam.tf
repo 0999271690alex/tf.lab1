@@ -1,35 +1,20 @@
-############################
-# IAM Group
-############################
-
+# 1. IAM Group
 resource "aws_iam_group" "group" {
   name = "cmtr-pf5k68pq-iam-group"
-
-  tags = {
-    Project = "cmtr-pf5k68pq"
-  }
 }
 
-############################
-# IAM Policy
-############################
-
+# 2. IAM Policy (використання templatefile)
 resource "aws_iam_policy" "policy" {
-  name = "cmtr-pf5k68pq-iam-policy"
-
-  policy = templatefile("${path.module}/policy.json", {
-    bucket_name = "cmtr-pf5k68pq-bucket-1771684355"
-  })
+  name        = "cmtr-pf5k68pq-iam-policy"
+  description = "Policy for S3 write access"
+  policy      = templatefile("policy.json", { bucket_name = var.bucket_name })
 
   tags = {
-    Project = "cmtr-pf5k68pq"
+    Project = var.project_tag
   }
 }
 
-############################
-# IAM Role (EC2 trust)
-############################
-
+# 3. IAM Role + Trust Relationship (EC2)
 resource "aws_iam_role" "role" {
   name = "cmtr-pf5k68pq-iam-role"
 
@@ -37,38 +22,32 @@ resource "aws_iam_role" "role" {
     Version = "2012-10-17"
     Statement = [
       {
+        Action = "sts:AssumeRole"
         Effect = "Allow"
         Principal = {
           Service = "ec2.amazonaws.com"
         }
-        Action = "sts:AssumeRole"
       }
     ]
   })
 
   tags = {
-    Project = "cmtr-pf5k68pq"
+    Project = var.project_tag
   }
 }
 
-############################
-# Attach policy to role
-############################
-
-resource "aws_iam_role_policy_attachment" "attach_policy" {
+# 4. Attach Policy to Role
+resource "aws_iam_role_policy_attachment" "attach" {
   role       = aws_iam_role.role.name
   policy_arn = aws_iam_policy.policy.arn
 }
 
-############################
-# Instance Profile
-############################
-
-resource "aws_iam_instance_profile" "instance_profile" {
+# 5. Instance Profile
+resource "aws_iam_instance_profile" "profile" {
   name = "cmtr-pf5k68pq-iam-instance-profile"
   role = aws_iam_role.role.name
 
   tags = {
-    Project = "cmtr-pf5k68pq"
+    Project = var.project_tag
   }
 }
