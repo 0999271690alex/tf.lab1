@@ -205,3 +205,12 @@ resource "aws_autoscaling_group" "asg" {
     propagate_at_launch = true
   }
 }
+
+############################
+# Attachment (required by test)
+############################
+
+resource "aws_autoscaling_attachment" "asg_attachment" {
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+  lb_target_group_arn    = aws_lb_target_group.tg.arn
+}
