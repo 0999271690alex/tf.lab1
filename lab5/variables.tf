@@ -1,28 +1,19 @@
-variable "vpc_id" {
-  description = "The ID of the pre-created VPC"
-  type        = string
-  default     = "vpc-0b2ca3d55bdc7321a"
-}
-
-variable "public_instance_id" {
-  description = "The ID of the public EC2 instance"
-  type        = string
-  default     = "i-078881213cbe0482b"
-}
-
-variable "private_instance_id" {
-  description = "The ID of the private EC2 instance"
-  type        = string
-  default     = "i-0da348aef33c16e89"
-}
-
 variable "allowed_ip_range" {
-  description = "List of IP address range for secure access"
+  description = "List of allowed IP ranges for secure access."
   type        = list(string)
 }
 
-variable "project_tag" {
-  description = "Project ID for tagging"
+variable "vpc_id" {
+  description = "ID of the existing VPC."
   type        = string
-  default     = "cmtr-pf5k68pq"
+}
+
+variable "public_instance_id" {
+  description = "ID of the public EC2 instance."
+  type        = string
+}
+
+variable "private_instance_id" {
+  description = "ID of the private EC2 instance."
+  type        = string
 }
