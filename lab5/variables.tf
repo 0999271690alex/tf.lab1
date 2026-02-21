@@ -17,12 +17,12 @@ variable "private_instance_id" {
 }
 
 variable "allowed_ip_range" {
-  description = "List of IP ranges allowed to access public resources"
+  description = "List of IP address range for secure access"
   type        = list(string)
 }
 
 variable "project_tag" {
-  description = "Project identifier for tagging"
+  description = "Project ID for tagging"
   type        = string
   default     = "cmtr-pf5k68pq"
 }
