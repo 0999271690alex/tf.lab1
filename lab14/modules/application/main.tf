@@ -1,4 +1,5 @@
-resource "aws_launch_template" "main" {
+resource "aws_launch_template" "template" {
+
   name_prefix   = "cmtr-pf5k68pq-template"
   image_id      = "ami-0c02fb55956c7d316"
   instance_type = "t3.micro"
@@ -19,4 +20,25 @@ INSTANCE_ID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
 echo "This message was generated on instance $INSTANCE_ID with the following UUID $UUID" > /var/www/html/index.html
 EOF
   )
+}
+
+resource "aws_autoscaling_group" "asg" {
+
+  desired_capacity = 2
+  max_size         = 2
+  min_size         = 2
+
+  vpc_zone_identifier = var.subnet_ids
+
+  launch_template {
+    id      = aws_launch_template.template.id
+    version = "$Latest"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      load_balancers,
+      target_group_arns
+    ]
+  }
 }
