@@ -27,9 +27,9 @@ module "network_security" {
 module "application" {
   source = "./modules/application"
 
-  vpc_id               = module.network.vpc_id
-  subnet_ids           = module.network.subnet_ids
-  ssh_sg               = module.network_security.ssh_sg
-  public_http_sg       = module.network_security.public_http_sg
-  private_http_sg      = module.network_security.private_http_sg
+  vpc_id          = module.network.vpc_id
+  subnet_ids      = module.network.subnet_ids
+  ssh_sg          = module.network_security.ssh_sg
+  public_http_sg  = module.network_security.public_http_sg
+  private_http_sg = module.network_security.private_http_sg
 }
