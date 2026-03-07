@@ -15,6 +15,9 @@ provider "aws" {
 
 module "network" {
   source = "./modules/network"
+
+  vpc_cidr = "10.10.0.0/16"
+  vpc_name = "cmtr-pf5k68pq-vpc"
 }
 
 module "network_security" {
