@@ -9,7 +9,7 @@ variable "subnet_ids" {
 }
 
 variable "ssh_sg_id" {
-  description = "Security Group ID for SSH access"
+  description = "The ID of the SSH Security Group"
   type        = string
 }
 
@@ -18,17 +18,7 @@ variable "public_http_sg" {
   type        = string
 }
 
-variable "private_http_sg" {
-  description = "Security Group ID for the private application instances"
-  type        = string
-}
-
 variable "private_http_sg_id" {
   description = "The ID of the Private HTTP Security Group"
-  type        = string
-}
-
-variable "ssh_sg_id" {
-  description = "The ID of the SSH Security Group"
   type        = string
 }
