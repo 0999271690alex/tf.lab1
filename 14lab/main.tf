@@ -1,5 +1,5 @@
 module "network" {
-  source = "./modules/network"
+  source   = "./modules/network"
   vpc_name = "cmtr-pf5k68pq-vpc"
   vpc_cidr = "10.10.0.0/16"
 }
