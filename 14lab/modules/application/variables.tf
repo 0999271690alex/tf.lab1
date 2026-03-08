@@ -1,24 +1,24 @@
 variable "vpc_id" {
-  description = "VPC ID for target group and load balancer"
+  description = "The ID of the VPC"
   type        = string
 }
 
 variable "subnet_ids" {
-  description = "List of subnet IDs for the ASG and ALB"
+  description = "List of subnet IDs"
   type        = list(string)
 }
 
 variable "ssh_sg_id" {
-  description = "The ID of the SSH Security Group"
+  description = "Security Group ID for SSH"
   type        = string
 }
 
 variable "public_http_sg" {
-  description = "Security Group ID for the public Load Balancer"
+  description = "Security Group ID for Public HTTP"
   type        = string
 }
 
 variable "private_http_sg_id" {
-  description = "The ID of the Private HTTP Security Group"
+  description = "Security Group ID for Private HTTP"
   type        = string
 }
