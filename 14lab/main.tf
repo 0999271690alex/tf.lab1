@@ -6,7 +6,7 @@ module "network" {
 }
 
 # 2. Модуль безпеки: створює Security Groups
-module "security" {
+module "network_security" { 
   source           = "./modules/network_security"
   vpc_id           = module.network.vpc_id
   allowed_ip_range = var.allowed_ip_range
