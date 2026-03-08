@@ -1,6 +1,6 @@
 resource "aws_vpc" "this" {
   cidr_block = var.vpc_cidr
-  tags = { Name = var.vpc_name }
+  tags       = { Name = var.vpc_name }
 }
 
 resource "aws_subnet" "public" {
@@ -9,7 +9,7 @@ resource "aws_subnet" "public" {
   cidr_block              = ["10.10.1.0/24", "10.10.3.0/24", "10.10.5.0/24"][count.index]
   availability_zone       = ["us-east-1a", "us-east-1b", "us-east-1c"][count.index]
   map_public_ip_on_launch = true
-  tags = { Name = ["cmtr-pf5k68pq-subnet-public-a", "cmtr-pf5k68pq-subnet-public-b", "cmtr-pf5k68pq-subnet-public-c"][count.index] }
+  tags                    = { Name = ["cmtr-pf5k68pq-subnet-public-a", "cmtr-pf5k68pq-subnet-public-b", "cmtr-pf5k68pq-subnet-public-c"][count.index] }
 }
 
 resource "aws_internet_gateway" "this" {

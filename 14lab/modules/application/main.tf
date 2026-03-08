@@ -1,7 +1,7 @@
 resource "aws_launch_template" "this" {
-  name          = "cmtr-pf5k68pq-template"
-  image_id      = "ami-02dfbd4ff395f2a1b" # Перевір актуальний AMI в консолі (Amazon Linux 2023)
-  instance_type = "t3.micro"
+  name                   = "cmtr-pf5k68pq-template"
+  image_id               = "ami-02dfbd4ff395f2a1b" # Перевір актуальний AMI в консолі (Amazon Linux 2023)
+  instance_type          = "t3.micro"
   vpc_security_group_ids = [var.ssh_sg_id, var.private_http_sg_id]
 
   network_interfaces {
